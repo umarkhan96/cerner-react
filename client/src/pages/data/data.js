@@ -21,7 +21,7 @@ export default class Data extends Component{
        q.set("code","https://lonic.org|10173-3");
        q.set("subject", client.patient.id);
        client
-           .request(`Observations${q}`,{
+           .request(`Observation?${q}`,{
                pageLimit:0,
                flat:true
            })
