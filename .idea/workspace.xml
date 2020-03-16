@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8ca1a2d6-e3d7-4607-95c5-180168aacab9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Yhv1bldnMr6HoLJWqDTOfniEy3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="11" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2019.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hp\IdeaProjects\cerner-demo\client\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hp\IdeaProjects\cerner-demo\client" />
+      <recent name="C:\Users\hp\IdeaProjects\cerner-demo" />
+      <recent name="C:\Users\hp\IdeaProjects\cerner-demo\client\src\config" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8ca1a2d6-e3d7-4607-95c5-180168aacab9" name="Default Changelist" comment="" />
+      <created>1583407426904</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583407426904</updated>
+      <workItem from="1583407430358" duration="1468000" />
+      <workItem from="1583409492076" duration="4196000" />
+      <workItem from="1583485736660" duration="1418000" />
+      <workItem from="1583823894095" duration="1235000" />
+      <workItem from="1584011826885" duration="625000" />
+      <workItem from="1584090906847" duration="2633000" />
+      <workItem from="1584110104305" duration="13692000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="179" key="#Project_Structure" timestamp="1583407441494">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Project_Structure/0.0.1920.1040/1920.-255.900.1400@0.0.1920.1040" timestamp="1583407441494" />
+    <state x="1920" y="100" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584364089849">
+      <screen x="1920" y="-255" width="900" height="1400" />
+    </state>
+    <state x="1920" y="100" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584364089849" />
+    <state x="2126" y="248" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584361846344">
+      <screen x="1920" y="-255" width="900" height="1400" />
+    </state>
+    <state x="2126" y="248" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584361846344" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1583819127125">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-255.900.1400@0.0.1920.1040" timestamp="1583819127125" />
+    <state x="1920" y="66" key="new project wizard" timestamp="1584091805964">
+      <screen x="1920" y="-255" width="900" height="1400" />
+    </state>
+    <state x="1920" y="66" key="new project wizard/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584091805964" />
+  </component>
+</project>
