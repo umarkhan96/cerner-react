@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8ca1a2d6-e3d7-4607-95c5-180168aacab9" name="Default Changelist" comment="" />
+    <list default="true" id="8ca1a2d6-e3d7-4607-95c5-180168aacab9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Patient/Patient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Patient/Patient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/data/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/data/data.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,6 +78,10 @@
       <workItem from="1584011826885" duration="625000" />
       <workItem from="1584090906847" duration="2633000" />
       <workItem from="1584110104305" duration="16408000" />
+      <workItem from="1584438315905" duration="2827000" />
+      <workItem from="1585389879065" duration="847000" />
+      <workItem from="1585563461238" duration="1540000" />
+      <workItem from="1586078018380" duration="13063000" />
     </task>
     <servers />
   </component>
@@ -93,13 +101,18 @@
       <screen x="1920" y="-255" width="900" height="1400" />
     </state>
     <state x="2126" y="248" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584361846344" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1583819127125">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-255.900.1400@0.0.1920.1040" timestamp="1583819127125" />
-    <state x="1920" y="66" key="new project wizard" timestamp="1584091805964">
+    <state x="2267" y="115" key="FileChooserDialogImpl" timestamp="1584448978225">
       <screen x="1920" y="-255" width="900" height="1400" />
     </state>
-    <state x="1920" y="66" key="new project wizard/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584091805964" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-255.900.1400@0.0.1920.1040" timestamp="1583819127125" />
+    <state x="2267" y="115" key="FileChooserDialogImpl/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584448978225" />
+    <state x="289" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586094710448">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="289" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.-254.900.1400@0.0.1920.1040" timestamp="1586094710448" />
+    <state x="1920" y="66" key="new project wizard" timestamp="1584448994542">
+      <screen x="1920" y="-255" width="900" height="1400" />
+    </state>
+    <state x="1920" y="66" key="new project wizard/0.0.1920.1040/1920.-255.900.1400@1920.-255.900.1400" timestamp="1584448994542" />
   </component>
 </project>
