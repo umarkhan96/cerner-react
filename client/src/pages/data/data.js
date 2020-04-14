@@ -35,6 +35,7 @@ export default class Data extends Component{
    }
 
    render() {
+       const list=[];
        const GaitValues =[];
        const BloodPressure=[];
        const HeartRate=[];
@@ -101,6 +102,12 @@ export default class Data extends Component{
                        </>
                    )
                }
+               list.push(
+                   <div>
+                       {index}. <b>Text :</b>{item.code.text}
+                       <hr />
+                   </div>
+               )
 
            })
        }
@@ -109,7 +116,7 @@ export default class Data extends Component{
               {
                   this.state.bp ?
                   <div>
-
+                      {list}
                      <h3>Neurological</h3>
                       <b>{this.state.bp[21].code.text}:</b> {this.state.bp[21].valueCodeableConcept.text}
                       <hr />
