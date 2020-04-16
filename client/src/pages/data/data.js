@@ -25,7 +25,7 @@ export default class Data extends Component{
        q.set("subject", client.patient.id);
        client
            .request(`Observation?${q}`,{
-               pageLimit:10,
+               pageLimit:20,
                flat:true
            })
            .then(bp=>{

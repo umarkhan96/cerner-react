@@ -20,7 +20,7 @@ class Home extends React.Component {
                     </p>
                     <div className={'fetchDataBtnContainer'}>
                         <button className={'fetchDataBtn'} onClick={() => { this.props.history.push('/launch') }}>
-                            Fetch Data
+                            Fetch Report
                     </button>
                     </div>
                 </div>

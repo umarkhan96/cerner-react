@@ -127,6 +127,28 @@ body{
   align-items: center;
   justify-content: center;
 }
+.printBtn{
+  margin: 10px auto;
+  border: none;
+  background: none;
+  outline: none;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 20px;
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: 0.5s;
+  background-color: #1297d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+}
+.printBtn:hover{
+  background: #000;
+}
+
 .fetchDataBtn:hover{
   background: rgba(17, 17, 17, 0.925);
 }
@@ -148,7 +170,11 @@ body{
 table{
   border-collapse: collapse;
   width: 100%;
+  page-break-inside:auto
 }
+tr    { page-break-inside:avoid; page-break-after:auto }
+thead { display:table-header-group }
+tfoot { display:table-footer-group }
 td{
   border:1px solid lightgray;
   font-family: Oswald;
@@ -156,6 +182,7 @@ td{
   padding:10px;
   vertical-align: top;
   word-break: break-all;
+  page-break-inside:avoid; page-break-after:auto
 
 }
 table span{
@@ -192,8 +219,10 @@ td .tdRow{
 }
 .elementsBox1{
   display:flex;
-  justify-content:flex-end;
-  margin-top:-25px;
+  /* justify-content:flex-end; */
+  /* margin-top:-25px; */
+  justify-content:space-around;
+
   margin-right: 10px;
 }
 .elementsBox2{
@@ -261,10 +290,12 @@ td .tdRow{
 }
 .shape1{
   display:flex;
-  margin:0px 20px
+  /* margin:0px 20px */
+  align-items: center;
 }
 .shape2{
-  display:flex
+  display:flex;
+  align-items: center;
 }
 .shape3{
   display:flex;
@@ -300,5 +331,34 @@ table{
   }
   .homeContent{
     width: 80%;
+  }
+}
+@media print{
+  .header{
+    display: none;
+  }
+  .reportHeadBox{
+    display: none
+  }
+  .formContainer{
+    overflow: auto;
+    page-break-inside:auto
+  }
+
+  td{
+    font-size: 11px !important;
+    padding: 3px;
+  }
+  .elementsContainer{
+    padding: 10px;
+  }
+  .elementsContainer p{
+    font-size: 6px !important;
+  }
+  .shape1B1{
+    width: 30px;
+  }
+  .shape1B2{
+    width: 30px;
   }
 }

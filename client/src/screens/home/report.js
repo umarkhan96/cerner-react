@@ -9,7 +9,7 @@ class Report extends React.Component {
     render() {
         return (
             <FhirClientProvider>
-                <Data />
+                <Data history={this.props.history} />
             </FhirClientProvider>
         )
     }

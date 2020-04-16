@@ -13,6 +13,8 @@ export default class Data extends Component{
             patient:null,
             error:null,
             bp:undefined,
+            allergy:undefined,
+            appointment:undefined
         }
     }
     componentDidMount() {
@@ -36,13 +38,60 @@ export default class Data extends Component{
         q.set("subject", client.patient.id);
         client
             .request(`Observation?${q}`,{
-                pageLimit:10,
+                pageLimit:13,
                 flat:true
             })
             .then(bp=>{
                 console.log(bp);
                 this.setState({bp,loading:false})
+            });
+        const q_ = new URLSearchParams();
+        // q.set("code","https://loinc.org|8903-7");
+        q_.set("patient", client.patient.id);
+        q_.set("date", new Date().getFullYear());
+        client
+            .request(`Appointment?${q_}`,{
+            pageLimit: 10,
+            flat: true
+        })
+            .then(appointment=>{
+
+                this.setState({appointment});
+
+                setTimeout(()=>{
+                    console.log(this.state.appointment);
+                },200)
             })
+        const q__ = new URLSearchParams();
+        q__.set("patient", client.patient.id);
+
+        client
+            .request(`AllergyIntolerance?${q__}`,{
+                pageLimit: 10,
+                flat: true
+            })
+            .then(allergy=>{
+
+                let allergies=''
+                for(let i=0;i<allergy.length;i++){
+                    if(i===allergy.length-1){
+                        allergies+=allergy[i].substance.text;
+                    }
+                    else{
+                        allergies+=allergy[i].substance.text+", ";
+                    }
+
+                }
+
+                this.setState({allergy:allergies});
+
+
+                setTimeout(()=>{
+                    console.log(this.state.allergy);
+                },200)
+            })
+
+
     }
     PatientName(name){
         let entry=
@@ -57,7 +106,9 @@ export default class Data extends Component{
         const GaitValues = [];
         const {error, loading,loadingPatient, patient} = this.state;
         if(error){
-            return error.message;
+            setTimeout(()=>{
+                this.props.history.push('/home');
+            })
         }
        if(this.state.bp){
            GaitValues.push(<>Gait: <br/></>)
@@ -71,10 +122,11 @@ export default class Data extends Component{
        }
         return(
             <div className={'formContainer'}>
-                <Header/>
+                <Header report={!loading && !loadingPatient} />
                 {loading===false && loadingPatient===false ? <div className={'reportContainer'}>
+                    <div className={'reportHeadBox'}>
                     <p className={'reportHead'}>Patient's Database in Report Sheet Format</p>
-
+                    </div>
                     <div>
                         <table>
 
@@ -84,24 +136,25 @@ export default class Data extends Component{
                                 <td>Age: <span>{moment().diff(patient.birthDate, 'years')}</span></td>
                                 <td>Sex: <span>{patient.gender}</span></td>
                                 <td>Room #: <span></span></td>
-                                <td></td>
-                                <td>
+                                <td colSpan={'2'}>
                                     Code Status: <span></span>
                                 </td>
                             </tr>
                             <tr>
-                                <td colSpan="5">Allergies: <span></span></td>
-                                <td>Presiding Physician: <span></span></td>
+                                <td colSpan="1" style={{width:'40%'}}>Allergies: <span>{this.state.allergy && this.state.allergy}</span></td>
+                                <td colSpan='2' style={{paddingRight:"0px", paddingLeft:"0px"}}>
+                                    <td style={{border:"none"}}>Height: <span></span></td>
+                                    <hr color={'lightgray'} />
+                                    <td style={{border:"none"}}>Width: <span></span></td>
+                                </td>
+                                <td colSpan='2'>Presiding Physician: <span>{this.state.appointment && this.state.appointment[0].participant[0].actor.display}</span></td>
                             </tr>
+
                             <tr>
-                                <td colSpan={"5"}></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colSpan="2">
+                                <td colSpan="1">
                                     Admitting Diagnosis:
                                     <br/>
-                                    <span>Pnumonia/Spesis</span>
+                                    <span>{this.state.appointment && this.state.appointment[0].description}</span>
                                 </td>
                                 <td colSpan="2">
                                     History:
@@ -112,7 +165,7 @@ export default class Data extends Component{
 
                                 {/* Elements Box */}
 
-                                <td colSpan="2">
+                                <td colSpan="3" >
                                     Labs:
 
                                     <div className={'elementsContainer'}>
@@ -123,52 +176,15 @@ export default class Data extends Component{
                                             <div className={'shape1'}>
                                                 <div>
                                                     <p className={'b1'}>
-                                                        {this.state.bp[106].valueQuantity.value+' '+this.state.bp[106].valueQuantity.unit}
+                                                        WBC {this.state.bp[106].valueQuantity.value}
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className={'b2'}>{this.state.bp[105].valueQuantity.value+' '+this.state.bp[105].valueQuantity.unit}</p>
-                                                    <p className={'b3'}>HCT</p>
+                                                    <p className={'b2'}>HGB {this.state.bp[105].valueQuantity.value}</p>
+                                                    <p className={'b3'}>HCT {this.state.bp[113].valueQuantity.value}</p>
                                                 </div>
                                                 <div>
-                                                    <p className={"b4"}>{this.state.bp[110].valueQuantity.value+' '+this.state.bp[110].valueQuantity.unit}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className={'shape2'}>
-
-                                                <div>
-                                                    <p className={'b2'}>{this.state.bp[103].valueQuantity.value+' '+this.state.bp[103].valueQuantity.unit}</p>
-                                                    <p className={'b3'}>{this.state.bp[112].valueQuantity.value+' '+this.state.bp[112].valueQuantity.unit}</p>
-                                                </div>
-                                                <div>
-                                                    <p className={"b4"}>{this.state.bp[111].valueQuantity.value+' '+this.state.bp[111].valueQuantity.unit}</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        {/* Upper top 2 Shapes Box End here */}
-
-                                        {/* Bottom 2 Shapes Box */}
-                                        <div className={'elementsBox2'}>
-
-                                            <div className={'shape3'}>
-                                                <div>
-                                                    <div style={{display: "flex"}}>
-                                                        <p className={'shape1B1'}>{this.state.bp[107].valueQuantity.value+' '+this.state.bp[107].valueQuantity.unit}</p>
-                                                        <p className={'shape1B1'}>{this.state.bp[102].valueQuantity.value+' '+this.state.bp[102].valueQuantity.unit}</p>
-                                                        <p className={'shape1B1'}>{this.state.bp[104].valueQuantity.value+' '+this.state.bp[104].valueQuantity.unit}</p>
-                                                    </div>
-                                                    <div style={{display: "flex", marginTop: "-8px"}}>
-                                                        <p className={'shape1B2'}>{this.state.bp[109].valueQuantity.value+' '+this.state.bp[109].valueQuantity.unit}</p>
-                                                        <p className={'shape1B2'}>{this.state.bp[114].valueQuantity.value+' '+this.state.bp[114].valueQuantity.unit}</p>
-                                                        <p className={'shape1B2'}>{this.state.bp[115].valueQuantity.value+' '+this.state.bp[115].valueQuantity.unit}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <p className={"b4"}>{this.state.bp[128].valueCodeableConcept.text}</p>
+                                                    <p className={"b4"}>PLT {this.state.bp[110].valueQuantity.value}</p>
                                                 </div>
                                             </div>
 
@@ -181,6 +197,45 @@ export default class Data extends Component{
                                                     <p className={'b3'}>INR </p>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        {/* Upper top 2 Shapes Box End here */}
+
+                                        {/* Bottom 2 Shapes Box */}
+                                        <div className={'elementsBox2'}>
+                                        <div className={'shape2'}>
+
+<div>
+    <p className={'b2'}>CA {this.state.bp[103].valueQuantity.value}</p>
+    <p className={'b3'}>MG {this.state.bp[112].valueQuantity.value}</p>
+</div>
+<div>
+    <p className={"b4"}>P {this.state.bp[111].valueQuantity.value}</p>
+</div>
+</div>
+
+
+<div className={'shape3'}>
+                                                <div>
+                                                    <div style={{display: "flex"}}>
+                                                        <p className={'shape1B1'}>NA {this.state.bp[107].valueQuantity.value}</p>
+                                                        <p className={'shape1B1'}>Cl {this.state.bp[102].valueQuantity.value}</p>
+                                                        <p className={'shape1B1'}>BUN {this.state.bp[104].valueQuantity.value}</p>
+                                                    </div>
+                                                    <div style={{display: "flex", marginTop: "-8px"}}>
+                                                        <p className={'shape1B2'}>K {this.state.bp[109].valueQuantity.value}</p>
+                                                        <p className={'shape1B2'}>CO2 {this.state.bp[114].valueQuantity.value}</p>
+                                                        <p className={'shape1B2'}>CR {this.state.bp[115].valueQuantity.value}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <p className={"b4"}>Glucose {this.state.bp[239].valueQuantity.value}</p>
+                                                </div>
+                                            </div>
+
+
+
 
                                         </div>
 
@@ -255,8 +310,8 @@ export default class Data extends Component{
                                     Activity Braden: <span>{this.state.bp[101].valueCodeableConcept.text}</span>
                                 </td>
 
-                                <td colSpan={'2'} rowSpan={'2'}>
-
+                                <td colSpan={'2'} rowSpan={'3'}>
+{/*
                                     <tr>
                                         <td>
                                             Abnormal Labs
@@ -336,7 +391,8 @@ export default class Data extends Component{
                                             <span></span>
 
                                         </td>
-                                    </tr>
+                                    </tr> */}
+                                    Notes: <span></span>
                                 </td>
                             </tr>
 
@@ -359,17 +415,76 @@ export default class Data extends Component{
 
                                 </td>
 
-                                <td colSpan={'2'}>
+                                <td colSpan={'2'} rowSpan='2'>
                                     Musculoskeletal: (Mobility
                                     <br/>
                                     {GaitValues}
                                     Morse Fall score: <span>{this.state.bp[11].valueQuantity.value}</span>
+                                    <br />
+                                    <br />
+                                    <tr>
+                                        <td>BP:</td>
+                                        <td><span>{this.state.bp[135].component[0].valueQuantity.value}/{this.state.bp[135].component[1].valueQuantity.value}</span></td>
+                                        <td><span>MAP - 67</span></td>
 
+                                    </tr>
+                                    <tr>
+                                        <td>HR:</td>
+                                        <td><span>{this.state.bp[156].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>RR:</td>
+                                        <td><span>{this.state.bp[133].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>O2 Sat:</td>
+                                        <td><span>{this.state.bp[52].valueQuantity.value+' '+this.state.bp[52].valueQuantity.unit}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>O2 Flow:</td>
+                                        <td><span>{this.state.bp[133].valueQuantity.value+' '+this.state.bp[133].valueQuantity.unit}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Temp:</td>
+                                        <td><span>{this.state.bp[132].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Pain:</td>
+                                        <td><span>{this.state.bp[41].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>(PO) Intake:</td>
+                                        <td><span>{this.state.bp[96].valueQuantity.value+' '+this.state.bp[96].valueQuantity.unit}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>(Urine)Output:</td>
+                                        <td><span>{this.state.bp[95].valueQuantity.value+' '+this.state.bp[95].valueQuantity.unit}</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>I/O Summary:</td>
+                                        <td colSpan='2'><span>{parseInt(this.state.bp[96].valueQuantity.value) - parseInt(this.state.bp[95].valueQuantity.value)}{" "+this.state.bp[95].valueQuantity.unit}</span></td>
+                                    </tr>
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td colSpan={'2'}>
+                            {/* <tr> */}
+                                {/* <td colSpan={'2'}>
                                     Respiratory: (Oxygenation)
                                     <br/>
                                     {this.state.bp[91].code.text}: <span>{this.state.bp[91].valueCodeableConcept.text}</span>
@@ -391,9 +506,9 @@ export default class Data extends Component{
                                     Flow rate: <span>Not Found</span>
                                     <br/>
                                     Cough: <span>{this.state.bp[70].valueCodeableConcept.text}</span>
-                                </td>
+                                </td> */}
 
-                                <td colSpan={'2'}>
+                                {/* <td colSpan={'2'}>
                                     Notes:
                                     <br/>
                                     <span></span>
@@ -474,10 +589,10 @@ export default class Data extends Component{
                                         <td>Summary: <span>/</span></td>
 
                                     </tr>
-                                </td>
-                            </tr>
+                                </td> */}
+                            {/* </tr> */}
 
-                            <tr>
+                            {/* <tr>
                                 <td colSpan={'2'}>
                                     Gastrointestinal: (Elimination & Metabolism)
                                     <br/>
@@ -503,7 +618,7 @@ export default class Data extends Component{
                                     <br/>
                                     <span></span>
                                 </td>
-                            </tr>
+                            </tr> */}
 
                             <tr>
                                 <td colSpan={'2'}>
@@ -513,11 +628,11 @@ export default class Data extends Component{
 
                                 </td>
 
-                                <td colSpan={'2'}>
+                                {/* <td colSpan={'2'}>
                                     Medications:
                                     <br/>
                                     <span></span>
-                                </td>
+                                </td> */}
                             </tr>
                         </table>
                     </div>
