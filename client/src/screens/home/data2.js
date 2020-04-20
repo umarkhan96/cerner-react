@@ -106,7 +106,9 @@ export default class Data extends Component{
         const GaitValues = [];
         const {error, loading,loadingPatient, patient} = this.state;
         if(error){
-            return error.message;
+            setTimeout(()=>{
+                this.props.history.push('/home');
+            })
         }
         if(this.state.bp){
             GaitValues.push(<>Gait: <br/></>)
@@ -122,8 +124,9 @@ export default class Data extends Component{
             <div className={'formContainer'}>
                 <Header report={!loading && !loadingPatient} />
                 {loading===false && loadingPatient===false ? <div className={'reportContainer'}>
-                        <p className={'reportHead'}>Patient's Database in Report Sheet Format</p>
-
+                        <div className={'reportHeadBox'}>
+                            <p className={'reportHead'}>Patient's Database in Report Sheet Format</p>
+                        </div>
                         <div>
                             <table>
 
@@ -133,19 +136,20 @@ export default class Data extends Component{
                                     <td>Age: <span>{moment().diff(patient.birthDate, 'years')}</span></td>
                                     <td>Sex: <span>{patient.gender}</span></td>
                                     <td>Room #: <span></span></td>
-                                    <td></td>
-                                    <td>
+                                    <td colSpan={'2'}>
                                         Code Status: <span></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colSpan="5">Allergies: <span>{this.state.allergy && this.state.allergy}</span></td>
-                                    <td>Presiding Physician: <span>{this.state.appointment && this.state.appointment[0].participant[0].actor.display}</span></td>
+                                    <td colSpan="1" style={{width:'40%'}}>Allergies: <span>{this.state.allergy && this.state.allergy}</span></td>
+                                    <td colSpan='2' style={{paddingRight:"0px", paddingLeft:"0px"}}>
+                                        <td style={{border:"none"}}>Height: <span></span></td>
+                                        <hr color={'lightgray'} />
+                                        <td style={{border:"none"}}>Width: <span></span></td>
+                                    </td>
+                                    <td colSpan='2'>Presiding Physician: <span>{this.state.appointment && this.state.appointment[0].participant[0].actor.display}</span></td>
                                 </tr>
-                                <tr>
-                                    <td colSpan={"5"}></td>
-                                    <td></td>
-                                </tr>
+
                                 <tr>
                                     <td colSpan="1">
                                         Admitting Diagnosis:
@@ -306,86 +310,89 @@ export default class Data extends Component{
                                         Activity Braden: <span>{this.state.bp[101].valueCodeableConcept.text}</span>
                                     </td>
 
-                                    <td colSpan={'2'} rowSpan={'3'} style={{width:'30%'}}>
-                                        <tr>
-                                            <td colSpan={'2'}>Height: <span>/</span></td>
-                                            <td>Weight: <span>/</span></td>
-                                            <td>BMI: <span>/</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Time:</td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                    <td colSpan={'2'} rowSpan={'3'}>
+                                        {/*
+                                    <tr>
+                                        <td>
+                                            Abnormal Labs
+                                        </td>
+                                        <td>
+                                            Trends
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>BP:</td>
-                                            <td><span>{this.state.bp[135].component[0].valueQuantity.value}/{this.state.bp[135].component[1].valueQuantity.value}</span></td>
-                                            <td><span>MAP - 67</span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>HR:</td>
-                                            <td><span>{this.state.bp[156].valueQuantity.value}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>RR:</td>
-                                            <td><span>{this.state.bp[133].valueQuantity.value}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>O2 Sat:</td>
-                                            <td><span>{this.state.bp[52].valueQuantity.value+' '+this.state.bp[52].valueQuantity.unit}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>O2 Flow:</td>
-                                            <td><span>{this.state.bp[133].valueQuantity.value+' '+this.state.bp[133].valueQuantity.unit}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>Temp:</td>
-                                            <td><span>{this.state.bp[132].valueQuantity.value}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>Pain:</td>
-                                            <td><span>{this.state.bp[41].valueQuantity.value}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                        <td>
+                                            <span></span>
 
-                                        </tr>
-                                        <tr>
-                                            <td>(PO) Intake:</td>
-                                            <td><span>{this.state.bp[96].valueQuantity.value+' '+this.state.bp[96].valueQuantity.unit}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>(Urine)Output:</td>
-                                            <td><span>{this.state.bp[95].valueQuantity.value+' '+this.state.bp[95].valueQuantity.unit}</span></td>
-                                            <td><span></span></td>
-                                            <td><span></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>I/O Summary:</td>
-                                            <td colSpan='2'><span>{parseInt(this.state.bp[96].valueQuantity.value) - parseInt(this.state.bp[95].valueQuantity.value)}{" "+this.state.bp[95].valueQuantity.unit}</span></td>
-                                        </tr>
+                                        </td>
+                                    </tr> */}
+                                        Notes: <span></span>
                                     </td>
                                 </tr>
 
@@ -408,82 +415,210 @@ export default class Data extends Component{
 
                                     </td>
 
-                                    <td colSpan={'2'}>
+                                    <td colSpan={'2'} rowSpan='2'>
                                         Musculoskeletal: (Mobility
                                         <br/>
                                         {GaitValues}
                                         Morse Fall score: <span>{this.state.bp[11].valueQuantity.value}</span>
+                                        <br />
+                                        <br />
+                                        <tr>
+                                            <td>BP:</td>
+                                            <td><span>{this.state.bp[135].component[0].valueQuantity.value}/{this.state.bp[135].component[1].valueQuantity.value}</span></td>
+                                            <td><span>MAP - 67</span></td>
 
-                                    </td>
-                                    <td></td>
-                                </tr>
+                                        </tr>
+                                        <tr>
+                                            <td>HR:</td>
+                                            <td><span>{this.state.bp[156].valueQuantity.value}</span></td>
+                                            <td><span></span></td>
 
-                                <tr>
-                                    <td colSpan={'2'}>
-                                        Respiratory: (Oxygenation)
-                                        <br/>
-                                        {this.state.bp[91].code.text}: <span>{this.state.bp[91].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[92].code.text}: <span>{this.state.bp[92].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[93].code.text}: <span>{this.state.bp[93].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[94].code.text}: <span>{this.state.bp[94].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[80].code.text}: <span>{this.state.bp[80].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        Breath sounds: <span>Not Found</span>
-                                        <br/>
-                                        Effort: <span>Not Found</span>
-                                        <br/>
-                                        Oxygen delivery: <span>Not Found</span>
-                                        <br/>
-                                        Flow rate: <span>{this.state.bp[133].valueQuantity.value+' '+this.state.bp[133].valueQuantity.unit}</span>
-                                        <br/>
-                                        Cough: <span>{this.state.bp[70].valueCodeableConcept.text}</span>
-                                    </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RR:</td>
+                                            <td><span>{this.state.bp[133].valueQuantity.value}</span></td>
+                                            <td><span></span></td>
 
-                                    <td colSpan={'2'}>
-                                        Notes:
-                                        <br/>
-                                        <span></span>
-                                    </td>
-                                    <td colSpan={'2'}>
+                                        </tr>
+                                        <tr>
+                                            <td>O2 Sat:</td>
+                                            <td><span>{this.state.bp[52].valueQuantity.value+' '+this.state.bp[52].valueQuantity.unit}</span></td>
+                                            <td><span></span></td>
 
-                                    </td>
+                                        </tr>
+                                        <tr>
+                                            <td>O2 Flow:</td>
+                                            <td><span>{this.state.bp[133].valueQuantity.value+' '+this.state.bp[133].valueQuantity.unit}</span></td>
+                                            <td><span></span></td>
 
-                                </tr>
+                                        </tr>
+                                        <tr>
+                                            <td>Temp:</td>
+                                            <td><span>{this.state.bp[132].valueQuantity.value}</span></td>
+                                            <td><span></span></td>
 
-                                <tr>
-                                    <td colSpan={'2'}>
-                                        Gastrointestinal: (Elimination & Metabolism)
-                                        <br/>
-                                        Diet: <span>Not Found</span>
-                                        <br/>
-                                        {this.state.bp[98].code.text}: <span>{this.state.bp[98].valueString}</span>
-                                        <br/>
-                                        Abdomen: <span>{this.state.bp[68].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[81].code.text}: <span>{this.state.bp[81].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[82].code.text}: <span>{this.state.bp[82].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[83].code.text}: <span>{this.state.bp[83].valueCodeableConcept.text}</span>
-                                        <br/>
-                                        {this.state.bp[84].code.text}: <span>{this.state.bp[84].valueCodeableConcept.text}</span>
-                                        <br/>
+                                        </tr>
+                                        <tr>
+                                            <td>Pain:</td>
+                                            <td><span>{this.state.bp[41].valueQuantity.value}</span></td>
+                                            <td><span></span></td>
 
-                                    </td>
+                                        </tr>
+                                        <tr>
+                                            <td>(PO) Intake:</td>
+                                            <td><span>{this.state.bp[96].valueQuantity.value+' '+this.state.bp[96].valueQuantity.unit}</span></td>
+                                            <td><span></span></td>
 
-                                    <td colSpan={'2'}>
-                                        Notes:
-                                        <br/>
-                                        <span></span>
-                                    </td>
-                                    <td colSpan={'2'}>
+                                        </tr>
+                                        <tr>
+                                            <td>(Urine)Output:</td>
+                                            <td><span>{this.state.bp[95].valueQuantity.value+' '+this.state.bp[95].valueQuantity.unit}</span></td>
+                                            <td><span></span></td>
 
+                                        </tr>
+                                        <tr>
+                                            <td>I/O Summary:</td>
+                                            <td colSpan='2'><span>{parseInt(this.state.bp[96].valueQuantity.value) - parseInt(this.state.bp[95].valueQuantity.value)}{" "+this.state.bp[95].valueQuantity.unit}</span></td>
+                                        </tr>
                                     </td>
                                 </tr>
+
+                                {/* <tr> */}
+                                {/* <td colSpan={'2'}>
+                                    Respiratory: (Oxygenation)
+                                    <br/>
+                                    {this.state.bp[91].code.text}: <span>{this.state.bp[91].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[92].code.text}: <span>{this.state.bp[92].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[93].code.text}: <span>{this.state.bp[93].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[94].code.text}: <span>{this.state.bp[94].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[80].code.text}: <span>{this.state.bp[80].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    Breath sounds: <span>crackles</span>
+                                    <br/>
+                                    Effort: <span>Not Found</span>
+                                    <br/>
+                                    Oxygen delivery: <span>Not Found</span>
+                                    <br/>
+                                    Flow rate: <span>Not Found</span>
+                                    <br/>
+                                    Cough: <span>{this.state.bp[70].valueCodeableConcept.text}</span>
+                                </td> */}
+
+                                {/* <td colSpan={'2'}>
+                                    Notes:
+                                    <br/>
+                                    <span></span>
+                                </td>
+                                <td colSpan={'2'} rowSpan={'3'}>
+                                    <tr>
+                                        <td colSpan={'2'}>Height: <span>/</span></td>
+                                        <td>Weight: <span>/</span></td>
+                                        <td>BMI: <span>/</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time:</td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>BP:</td>
+                                        <td><span>{this.state.bp[135].component[0].valueQuantity.value}/{this.state.bp[135].component[1].valueQuantity.value}</span></td>
+                                        <td><span>MAP - 67</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>HR:</td>
+                                        <td><span>{this.state.bp[156].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>RR:</td>
+                                        <td><span>{this.state.bp[133].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>O2 Sat:</td>
+                                        <td><span>/</span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>O2 Flow:</td>
+                                        <td><span>/</span></td>
+                                        <td><span>/</span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Temp:</td>
+                                        <td><span>{this.state.bp[132].valueQuantity.value}</span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Pain:</td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>(PO) I:</td>
+                                        <td><span>{this.state.bp[96].valueQuantity.value+' '+this.state.bp[96].valueQuantity.unit}</span></td>
+                                        <td><span></span></td>
+                                        <td><span></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>(Urine)O:</td>
+                                        <td><span>/</span></td>
+                                        <td><span></span></td>
+                                        <td>Summary: <span>/</span></td>
+
+                                    </tr>
+                                </td> */}
+                                {/* </tr> */}
+
+                                {/* <tr>
+                                <td colSpan={'2'}>
+                                    Gastrointestinal: (Elimination & Metabolism)
+                                    <br/>
+                                    Diet: <span>Not Found</span>
+                                    <br/>
+                                    {this.state.bp[98].code.text}: <span>{this.state.bp[98].valueString}</span>
+                                    <br/>
+                                    Abdomen: <span>{this.state.bp[68].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[81].code.text}: <span>{this.state.bp[81].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[82].code.text}: <span>{this.state.bp[82].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[83].code.text}: <span>{this.state.bp[83].valueCodeableConcept.text}</span>
+                                    <br/>
+                                    {this.state.bp[84].code.text}: <span>{this.state.bp[84].valueCodeableConcept.text}</span>
+                                    <br/>
+
+                                </td>
+
+                                <td colSpan={'2'}>
+                                    Notes:
+                                    <br/>
+                                    <span></span>
+                                </td>
+                            </tr> */}
 
                                 <tr>
                                     <td colSpan={'2'}>
@@ -493,14 +628,11 @@ export default class Data extends Component{
 
                                     </td>
 
-                                    <td colSpan={'2'}>
-                                        Medications:
-                                        <br/>
-                                        <span></span>
-                                    </td>
-                                    <td colSpan={'2'}>
-
-                                    </td>
+                                    {/* <td colSpan={'2'}>
+                                    Medications:
+                                    <br/>
+                                    <span></span>
+                                </td> */}
                                 </tr>
                             </table>
                         </div>
