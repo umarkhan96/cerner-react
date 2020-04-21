@@ -432,8 +432,6 @@ export default class Data extends Component{
                                         <br/>
                                         {this.state.bp[80].code.text}: <span>{this.state.bp[80].valueCodeableConcept.text}</span>
                                         <br/>
-                                        Breath sounds: <span>Not Found</span>
-                                        <br/>
                                         Effort: <span>Not Found</span>
                                         <br/>
                                         Oxygen delivery: <span>Not Found</span>
